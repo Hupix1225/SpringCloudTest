@@ -1,0 +1,45 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: GATEWAY
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+    gateway:
+      routes:
+        - id: city_routers
+          uri: lb://CITIES
+          predicates:
+            - Path=/clazz-demo/city/**
+          filters:
+            - StripPrefix=2
+
+        - id: student_routers
+          uri: lb://STUDENT
+          predicates:
+            - Path=/clazz-demo/student/**
+          filters:
+            - StripPrefix=2
+
+        - id: tag_routers
+          uri: lb://TAG
+          predicates:
+            - Path=/clazz-demo/tag/**
+          filters:
+            - StripPrefix=2
+
+        - id: group_routers
+          uri: lb://GROUP
+          predicates:
+            - Path=/clazz-demo/group/**
+          filters:
+            - StripPrefix=2
+
+        - id: clazz_routers
+          uri: lb://CLAZZ
+          predicates:
+            - Path=/clazz-demo/clazz/**
+          filters:
+            - StripPrefix=2
